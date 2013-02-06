@@ -10,7 +10,6 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-        "pda/pheanstalk": "dev-master",
-        "juriansluiman/slm-queue": "dev-master"
+        "jfloff/djjob-zf2" : "dev-master"
     }
 }

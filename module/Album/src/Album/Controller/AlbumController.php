@@ -12,6 +12,7 @@ class AlbumController extends AbstractActionController
 
     public function indexAction()
     {
+
         return new ViewModel(array(
             'albums' => $this->getAlbumTable()->fetchAll(),
         ));
@@ -19,10 +20,6 @@ class AlbumController extends AbstractActionController
 
     public function addAction()
     {
-        // $service = $this->getServiceLocator()->get('SlmQueue\Service\PheanstalkBridge');
-        // $service->put('Album\Job\HelloWorldJob', null);
-
-
         $form = new AlbumForm();
         $form->get('submit')->setValue('Add');
 
@@ -40,6 +37,24 @@ class AlbumController extends AbstractActionController
                 return $this->redirect()->toRoute('album');
             }
         }
+
+        $url = 'http://skeleton:8888/public/scheduler';
+        $server = 'skeleton';
+        $errno = '';
+        $errstr = '';
+
+        $fp = fsockopen($server, 8888, $errno, $errstr, 30);
+        if (!$fp) {
+            echo "NÃO DEU!\n";
+            echo "$errstr ($errno)<br />\n";
+        }
+
+        $out = "GET $url HTTP/1.1\r\n";
+        $out .= "Host: $server\r\n";
+        $out .= "Connection: Close\r\n\r\n";
+
+        fwrite($fp, $out);
+
         return array('form' => $form);
     }
 
