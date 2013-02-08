@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Album\Model\Album;
 use Album\Form\AlbumForm;
+use DJJob;
 
 class AlbumController extends AbstractActionController
 {
@@ -38,22 +39,30 @@ class AlbumController extends AbstractActionController
             }
         }
 
-        $url = 'http://skeleton:8888/public/scheduler';
-        $server = 'skeleton';
-        $errno = '';
-        $errstr = '';
+        // $asda = new HelloWorldJob("ALEX");
 
-        $fp = fsockopen($server, 8888, $errno, $errstr, 30);
-        if (!$fp) {
-            echo "NÃO DEU!\n";
-            echo "$errstr ($errno)<br />\n";
-        }
+        // var_dump($asda);
+        // die();
+        DJJob::configure("pgsql:host=127.0.0.1;dbname=djjob_test;port=5432;user=postgres;password=");
+        DJJob::enqueue(new HelloWorldJob("FACIL"));
 
-        $out = "GET $url HTTP/1.1\r\n";
-        $out .= "Host: $server\r\n";
-        $out .= "Connection: Close\r\n\r\n";
+        var_dump("LALALA");
+        // $url = 'http://skeleton:8888/public/scheduler';
+        // $server = 'skeleton';
+        // $errno = '';
+        // $errstr = '';
 
-        fwrite($fp, $out);
+        // $fp = fsockopen($server, 8888, $errno, $errstr, 30);
+        // if (!$fp) {
+        //     echo "NÃO DEU!\n";
+        //     echo "$errstr ($errno)<br />\n";
+        // }
+
+        // $out = "GET $url HTTP/1.1\r\n";
+        // $out .= "Host: $server\r\n";
+        // $out .= "Connection: Close\r\n\r\n";
+
+        // fwrite($fp, $out);
 
         return array('form' => $form);
     }

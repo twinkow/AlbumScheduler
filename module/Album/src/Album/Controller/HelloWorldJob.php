@@ -1,6 +1,6 @@
 <?php
 
-namespace Scheduler\Controller;
+namespace Album\Controller;
 
 class HelloWorldJob {
 	private $name;
@@ -9,6 +9,7 @@ class HelloWorldJob {
         $this->name = $name;
     }
     public function perform() {
+    	error_log("CABRAO DO CARALHO!");
         echo "Hello {$this->name}!\n";
     }
 }
