@@ -9,7 +9,6 @@ class HelloWorldJob {
         $this->name = $name;
     }
     public function perform() {
-    	error_log("CABRAO DO CARALHO!");
         echo "Hello {$this->name}!\n";
     }
 }

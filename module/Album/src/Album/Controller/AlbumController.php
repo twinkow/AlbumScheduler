@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Album\Model\Album;
 use Album\Form\AlbumForm;
 use DJJob;
+use DJWorker;
 
 class AlbumController extends AbstractActionController
 {
@@ -39,14 +40,9 @@ class AlbumController extends AbstractActionController
             }
         }
 
-        // $asda = new HelloWorldJob("ALEX");
-
-        // var_dump($asda);
-        // die();
         DJJob::configure("pgsql:host=127.0.0.1;dbname=djjob_test;port=5432;user=postgres;password=");
         DJJob::enqueue(new HelloWorldJob("FACIL"));
-
-        var_dump("LALALA");
+        var_dump(DJJob::status());
         // $url = 'http://skeleton:8888/public/scheduler';
         // $server = 'skeleton';
         // $errno = '';
@@ -93,6 +89,10 @@ class AlbumController extends AbstractActionController
                 return $this->redirect()->toRoute('album');
             }
         }
+
+        DJJob::configure("pgsql:host=127.0.0.1;dbname=djjob_test;port=5432;user=postgres;password=");
+        DJJob::enqueue(new ByeWorldJob("GOLO"));
+        var_dump(DJJob::status());
 
         return array(
             'id' => $id,
